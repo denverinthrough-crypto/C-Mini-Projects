@@ -78,7 +78,7 @@ class BankAccount {
         void showBalance() {
             cout << "Account Holder: " << accountHolder << endl;
             cout << "Account Number: " << accountNumber << endl;
-            cout << "Balance $" << balance << endl;
+            cout << "Balance: $" << balance << endl;
         }
 
 };
@@ -91,28 +91,61 @@ class BankAccount {
 
 int main() {
 
-    // Create a new bank account object
-    // Constructor runs here
+    // Create one bank account object
+    // Constructor automatically sets name, number, and starting balance
     BankAccount myAccount("Denver", 12345, 500.0);
 
-    // Show initial account state
-    myAccount.showBalance();
-    cout << endl;
+    int choice; // stores menu choice from user
+    double amount; // stores deposit/withdraw amount
 
-    // Deposit money -> changes objects state
-    myAccount.deposit(200);
-    myAccount.showBalance();
-    cout << endl;
 
-    // Withdraw money -> changes object state
-    myAccount.withdraw(100);
-    myAccount.showBalance();
-    cout << endl;
+    // Loop keeps program running until user choices Exit
+    do {
+        cout << "\n=== BANK MENU ===\n";
+        cout << "1. Show Balance\n";
+        cout << "2. Deposit\n";
+        cout << "3. Withdraw\n";
+        cout << "4. Exit\n";
 
-    // Attempt invalid withdraw
-    myAccount.withdraw(1000);
-    myAccount.showBalance();
-    cout << endl;
+        // Ask user what they want to do
+        cout << "Choose: ";
+        cin >> choice;
+
+        // Decide what action to perform
+        switch(choice) {
+
+            // Case 1 -> just display account info
+            case 1:
+                myAccount.showBalance();
+                break;
+
+            // Case 2 -> deposit money
+            case 2:
+                cout << "Enter amount of deposit: ";
+                cin >> amount; // read amount
+                myAccount.deposit(amount); // call class function
+                break;
+
+            // Case 3 -> withdraw money
+            case 3:
+                cout << "Enter amount to withdraw: ";
+                cin >> amount;
+                myAccount.withdraw(amount);
+                break;
+
+            // Case 4 -> exit program
+            case 4:
+                cout << "Goodbye!\n";
+                break;
+
+            // Any other number -> invalid
+            default:
+                cout << "Invalid option.\n";
+
+
+        }
+    } while(choice != 4); // repeat until Exit is chosen
 
     return 0; // program ends
+
 }
