@@ -5,6 +5,7 @@ class Calculator {
 private:
     double num1;
     double num2;
+   
 
 public:
     void getInput() {
@@ -16,7 +17,8 @@ public:
     }
 
     double add() {
-        return num1 + num2;
+        cout << num1;
+        
     }
 
     double subtract() {
@@ -43,30 +45,31 @@ int main() {
 
     do {
         cout << "\n===== Simple OOP Calculator =====\n";
-        cout << "Choose operation (+, -, *, /): ";
+        cout << "Choose options:\n1. Add\n2. Subtract\n3. Multiply\n4. Division\n ";
+        cout << "Enter option: ";
         cin >> choice;
 
         calc.getInput();
 
         switch(choice) {
-            case '+':
+            case '1':
                 cout << "Result: " << calc.add() << endl;
                 break;
 
-            case '-':
+            case '2':
                 cout << "Result: " << calc.subtract() << endl;
                 break;
 
-            case '*':
+            case '3':
                 cout << "Result: " << calc.multiply() << endl;
                 break;
 
-            case '/':
+            case '4':
                 cout << "Result: " << calc.division() << endl;
-                break; // ✅ important!
+                break; 
             
             default:
-                cout << "Invalid operator.\n";
+                cout << "Invalid number. Only numbers from 1 to 5.\n";
         }
 
         cout << "\nDo you want to calculate again? (y/n): ";
