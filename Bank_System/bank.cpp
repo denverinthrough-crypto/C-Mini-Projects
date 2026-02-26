@@ -25,6 +25,8 @@ class BankAccount {
         double balance;
         const double maxLimitDeposit = 2000.0;
         const double minLimitDeposit = 9.0;
+        const double maxWithdraw = 1000.0;
+        const double minWithdraw = 10.0;
 
     public:
 
@@ -54,7 +56,7 @@ class BankAccount {
 
             } else {
                 balance += amount;
-                cout << "Deposit $" << amount << " successfully.\n";
+                cout << "Deposit $" << amount << " successfully!\n";
 
             }
         }
@@ -67,15 +69,18 @@ class BankAccount {
             - enough money exists
         */
 
-        void withdraw(double amount) {
-            if (amount > 0 && amount <= balance) {
-                balance -= amount; // decrease balance
-                cout << "Withdraw $" << amount << " successfully.\n";
+        void withdraw(double amount) { 
+            if (amount > maxWithdraw) { 
+                cout << "$1000.0 maximum withdrawal!\n"; 
 
-            } else {
-                cout << "Insufficient funds or invalid amount.\n";
-            }
-        }
+            } else if (amount != minWithdraw && amount <= minWithdraw) {
+                 cout << "$10.0 minimum withdrawal!\n"; 
+                 
+            } else { 
+                balance -= amount; 
+                cout << "Withdraw $" << amount << " successfully!\n"; }
+         }
+
 
         /*
             SHOW BALANCE
