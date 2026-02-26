@@ -1,5 +1,7 @@
 #include <iostream> // for cout / input-output
 #include <string> // for string type
+ 
+
 using namespace std;
 
 /*
@@ -22,6 +24,7 @@ class BankAccount {
         int accountNumber;
         double balance;
         const double maxLimitDeposit = 2000.0;
+        const double minLimitDeposit = 9.0;
 
     public:
 
@@ -43,15 +46,15 @@ class BankAccount {
         */
         
         void deposit(double amount) {
-            if (amount <= 0) {
-                cout << "Invalie deposit amount.\n";
+            if (amount <= minLimitDeposit) {
+                cout << "$10.0 minimum deposit!\n";
 
-            } else if (amount > maxLimitDeposit) {
-                cout << "$2000.0 maximum deposit!\n";
+            }else if (amount > maxLimitDeposit) {
+                cout << "$2,000.0 maximum deposit!\n";
 
             } else {
                 balance += amount;
-                cout << "Deposit $ " << amount << " successfully.\n";
+                cout << "Deposit $" << amount << " successfully.\n";
 
             }
         }
@@ -81,6 +84,8 @@ class BankAccount {
         */
 
         void showBalance() {
+           
+
             cout << "Account Holder: " << accountHolder << endl;
             cout << "Account Number: " << accountNumber << endl;
             cout << "Balance: $" << balance << endl;
@@ -98,7 +103,7 @@ int main() {
 
     // Create one bank account object
     // Constructor automatically sets name, number, and starting balance
-    BankAccount myAccount("Denver", 12345, 500.0);
+    BankAccount myAccount("Denver", 12345, 5000.0);
 
     int choice; // stores menu choice from user
     double amount; // stores deposit/withdraw amount
