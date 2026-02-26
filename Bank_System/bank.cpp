@@ -21,6 +21,7 @@ class BankAccount {
         string accountHolder;
         int accountNumber;
         double balance;
+        const double maxLimitDeposit = 2000.0;
 
     public:
 
@@ -42,12 +43,16 @@ class BankAccount {
         */
         
         void deposit(double amount) {
-            if(amount > 0) {
-                balance += amount; // increase balance
-                cout << "Deposit $" << amount << " successfully.\n";
+            if (amount <= 0) {
+                cout << "Invalie deposit amount.\n";
+
+            } else if (amount > maxLimitDeposit) {
+                cout << "$2000.0 maximum deposit!\n";
 
             } else {
-                cout << "Invalid deposit amount.\n";
+                balance += amount;
+                cout << "Deposit $ " << amount << " successfully.\n";
+
             }
         }
 
