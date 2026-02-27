@@ -18,6 +18,10 @@ class Namelist {
 
     public:
 
+        int getSize() const {
+            return names.size();
+        }
+
         void addName(const string& name) {
             string upperName = toUpper(name);
             names.push_back(upperName);
@@ -30,7 +34,7 @@ class Namelist {
                 return;
             }
             for (size_t i = 0; i < names.size(); i++) {
-                cout << i << ": " << names[i] << endl;
+                cout << i + 1 << ". " << names[i] << endl;
             }
         }
 
@@ -38,7 +42,7 @@ class Namelist {
             string upperName = toUpper(name);
             for (size_t i = 0; i < names.size(); i++) {
                 if (names[i] == upperName) {
-                    cout << upperName << " found at index " << i << endl;
+                    cout << upperName << " found at index " << i + 1 << endl;
                     return;
                 }
             }
@@ -72,25 +76,42 @@ class Namelist {
         }
 };
 
+// helper function to safely get an index from user
+size_t getIndex(const string& prompt) {
+    string input;
+    while (true) {
+        cout << prompt;
+        getline(cin, input);
+        try {
+            int val = stoi(input);
+            if (val < 1) {
+                cout << "Invalid index. Please enter a valid number.\n";
+                continue;
+            }
+            return (size_t)val;
+        } catch (...) {
+            cout << "Invalid index. Please enter a valid number.\n";
+        }
+    }
+}
+
 int main() {
     Namelist myList;
     int choice = -1;
 
     do {
-        cout << " ====== NAME-LIST ===== \n";
+        cout << "\n ====== NAME-LIST ===== \n";
         cout << "\n1. Add\n2. Show\n3. Search\n4. Remove\n5. Modify\n6. Access\n0. Exit\nChoice: ";
-        
+
         string input;
-        getline(cin, input);  // read everything as string, no cin failure possible
+        getline(cin, input);
 
         try {
-            choice = stoi(input);  // try to convert to int
+            choice = stoi(input);
         } catch (...) {
-            cout << "Invalid input. Please enter a number from 1 to 6: \n";
+            cout << "Invalid input. Please enter a number.\n";
             continue;
         }
-        
-    
 
         if (choice == 1) {
             string name;
@@ -108,28 +129,25 @@ int main() {
             myList.searchName(name);
 
         } else if (choice == 4) {
-            size_t index;
-            cout << "Index to remove, pick from 0 to 4: ";
-            cin >> index;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            myList.removeName(index);
+            myList.showNames();
+            size_t index = getIndex("Index to remove (1 to " + to_string(myList.getSize()) + "): ");
+            myList.removeName(index - 1);
 
         } else if (choice == 5) {
-            size_t index;
+            myList.showNames();
+            size_t index = getIndex("Index to modify (1 to " + to_string(myList.getSize()) + "): ");
             string name;
-            cout << "Index to modify: ";
-            cin >> index;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "New Name: ";
             getline(cin, name);
-            myList.modifyName(index, name);
+            myList.modifyName(index - 1, name);
 
         } else if (choice == 6) {
-            size_t index;
-            cout << "Index to access from 0 to 4: ";
-            cin >> index;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            myList.accessName(index);
+            myList.showNames();
+            size_t index = getIndex("Index to access (1 to " + to_string(myList.getSize()) + "): ");
+            myList.accessName(index - 1);
+
+        } else if (choice != 0) {
+            cout << "Invalid choice. Pick from 0 to 6.\n";
         }
 
     } while (choice != 0);
@@ -137,3 +155,4 @@ int main() {
     cout << "Goodbye\n";
     return 0;
 }
+
