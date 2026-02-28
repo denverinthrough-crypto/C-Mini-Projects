@@ -2,54 +2,55 @@
 using namespace std;
 
 // Function to convert Celsius to Fahrenheit
-double convert(double temp ){
+double convertF(double temp ){
         return (temp * 9/5) + 32;
-        
 };
+
+// Function to convert Fahrenheit to Celsius
+double convertC(double temp){
+        return (temp - 32) * 5/9;
+};
+        
+
 
 int main(){
     
-    string choice; // store user's yes/no input
+    int choice;
+     // store user's yes/no input
     
+   
     do {
         double num; // stores user's Celsius input
+        cout << "===== WEATHER CONVERTER ===== \n";
+        cout << "Choose temperature to Convert\n";
+        cout << "1. Convert Celsius to Fahrenheit\n";
+        cout << "2. Convert Fahrenheit to Celsius\n";
+        cout << "3. Exit\n";
+        cout << "Choose option: ";
+        cin >> choice;
 
-        // Ask user to enter a temperature in Celsius
-        cout << "Enter number: "; 
-        cin >> num;
 
-        // Convert and store the Fahrenheit result
-        double fahrenheit = convert(num); 
-        cout << "The temperature is: " << fahrenheit << " F\n";
-    
-    // Check the converted Fahrenheit value and print a message
-    if (fahrenheit > 100) {
-        cout << "Extremely hot!\n";   
+        if(choice == 1) {
+            cout << "Enter number: ";
+            cin >> num;
+            double fahrenheit = convertF(num); 
+            cout << "The temperature is: " << fahrenheit << " F\n";
 
-    } else if (fahrenheit > 80) {
-        cout << "It's too hot outside!\n";
+        } else if (choice == 2) {
+            cout << "Enter number: ";
+            cin >> num;
+            double celsius = convertC(num);
+            cout << "The temperature is: " << celsius << " C\n";
+        } else if (choice == 3) {
+            cout << "Goodbye!\n";
 
-    } else if (fahrenheit > 75) {
-        cout << "It's a bit warm!\n";
 
-    } else if (fahrenheit > 50) { 
-        cout << "It's a bit chilly!\n";
+        }else {
+            cout << "Invalid input. Please choose 1, 2, 3.\n";
+        }
+    } while (choice != 3);
 
-    } else {
-        cout << "It's cold!\n"; // Anything 50F and below is considered cold
-    }
-
-    // Ask user if they want to convert another temperature
-    cout << "\n";
-    cout << "You want to check again? (Yes/No): ";
-    cin >> choice;
-    cout << "\n";
    
-    } while (choice == "Yes" || choice == "yes");
-
-    cout << "Goodbye!\n";
-
-    return 0;
 
 }
 
