@@ -8,25 +8,26 @@ double convert(double temp ){
 };
 
 int main(){
-    double num;
     
-    cout << "Enter number: \n"; // user's input
-    cin >> num;
-
-   
-    cout << "The temperature is: " << convert(num) << + " F" << "\n";
-
+    string choice;
     
-    if (num > 80) {
-        cout << "It's too hot outside!";
-    
-    } else if (num > 75) {
-        cout << "It's not too bad outside!";
+    do {
+        double num;
 
-    } else {
-        cout << "It's cold!";
+        cout << "Enter number: \n"; // user's input
+        cin >> num;
+        cout << "The temperature is: " << convert(num) << + " F" << "\n";
+
+        cout << "Try again (Yes/No): \n";
+        cin >> choice;
+        cout << "\n";
     }
-   
+    while (choice == "Yes" || choice == "yes");
+
+    cout << "Goodbye!\n";
+
+    return 0;
+
     
 }
 
