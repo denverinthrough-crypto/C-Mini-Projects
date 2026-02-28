@@ -14,15 +14,34 @@ int main(){
     do {
         double num;
 
-        cout << "Enter number: \n"; // user's input
+        cout << "Enter number: "; // user's input
         cin >> num;
-        cout << "The temperature is: " << convert(num) << + " F" << "\n";
 
-        cout << "Try again (Yes/No): \n";
-        cin >> choice;
-        cout << "\n";
+        double fahrenheit = convert(num); // store the converted value
+        cout << "The temperature is: " << fahrenheit << " F\n";
+
+    if (fahrenheit > 100) {
+        cout << "Extremely hot!\n";   
+
+    } else if (fahrenheit > 80) {
+        cout << "It's too hot outside!\n";
+
+    } else if (fahrenheit > 75) {
+        cout << "It's a bit warm!\n";
+
+    } else if (fahrenheit > 50) { 
+        cout << "It's a bit chilly!\n";
+
+    } else {
+        cout << "It's cold!\n";
     }
-    while (choice == "Yes" || choice == "yes");
+
+    cout << "\n";
+    cout << "You want to check again? (Yes/No): ";
+    cin >> choice;
+    cout << "\n";
+   
+    } while (choice == "Yes" || choice == "yes");
 
     cout << "Goodbye!\n";
 
@@ -33,4 +52,5 @@ int main(){
 
 
 // convert c to f - checked
-// add temp to convert
+// do/while loop - checked
+// implement if statement
