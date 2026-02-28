@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-
+// Function to convert Celsius to Fahrenheit
 double convert(double temp ){
         return (temp * 9/5) + 32;
         
@@ -9,17 +9,20 @@ double convert(double temp ){
 
 int main(){
     
-    string choice;
+    string choice; // store user's yes/no input
     
     do {
-        double num;
+        double num; // stores user's Celsius input
 
-        cout << "Enter number: "; // user's input
+        // Ask user to enter a temperature in Celsius
+        cout << "Enter number: "; 
         cin >> num;
 
-        double fahrenheit = convert(num); // store the converted value
+        // Convert and store the Fahrenheit result
+        double fahrenheit = convert(num); 
         cout << "The temperature is: " << fahrenheit << " F\n";
-
+    
+    // Check the converted Fahrenheit value and print a message
     if (fahrenheit > 100) {
         cout << "Extremely hot!\n";   
 
@@ -33,9 +36,10 @@ int main(){
         cout << "It's a bit chilly!\n";
 
     } else {
-        cout << "It's cold!\n";
+        cout << "It's cold!\n"; // Anything 50F and below is considered cold
     }
 
+    // Ask user if they want to convert another temperature
     cout << "\n";
     cout << "You want to check again? (Yes/No): ";
     cin >> choice;
@@ -47,10 +51,6 @@ int main(){
 
     return 0;
 
-    
 }
 
 
-// convert c to f - checked
-// do/while loop - checked
-// implement if statement
