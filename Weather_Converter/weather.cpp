@@ -14,22 +14,22 @@ class WeatherConverter {
         }
 
         // Setter
-        void setTemperature(double temp) {
+        void setTemperature(double temp) { // no return
             temperature = temp;
         }
 
         // Getter
-        double getTemperature() {
+        double getTemperature() { // get the value of temp(user's input) temperature = temp;
             return temperature;
         }
 
         // Function to convert Celsius to Fahrenheit
-        double convertF(double temp ){
-            return (temperature * 9/5) + 32;
+        double convertF(){
+            return (temperature * 9/5) + 32; // return the value as a "expression"
         }
 
         // Function to convert Fahrenheit to Celsius
-        double convertC(double temp){
+        double convertC(){
             return (temperature - 32) * 5/9;
         }
 
@@ -72,7 +72,7 @@ int main() {
             cout << "Enter number: ";
             cin >> num;
             converter.setTemperature(num); // Set the temperature
-            double fahrenheit = converter.convertF(num); // Call method via object
+            double fahrenheit = converter.convertF(); // Call method via object
             cout << "The temperature is: " << fahrenheit << " F\n";
             converter.weatherMessage(fahrenheit); // call function
 
@@ -80,7 +80,7 @@ int main() {
             cout << "Enter number: ";
             cin >> num;
             converter.setTemperature(num);
-            double celsius = converter.convertC(num);       
+            double celsius = converter.convertC();       
             cout << "The temperature is: " << celsius << " C\n";
             converter.weatherMessage(celsius);
 
