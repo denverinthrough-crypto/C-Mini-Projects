@@ -2,37 +2,60 @@
 #include <iomanip>
 using namespace std;
 
-// Function to convert Celsius to Fahrenheit
-double convertF(double temp ){
-        return (temp * 9/5) + 32;
-};
 
-// Function to convert Fahrenheit to Celsius
-double convertC(double temp){
-        return (temp - 32) * 5/9;
-};
+class WeatherConverter {
+    private:
+        double temperature;
 
-// Function message output
-void weatherMessage(double temperature){
-    if (temperature > 100) {
-        cout << "Extremely hot!\n";
-    } else if (temperature > 80) {
-        cout << "It's too hot outside!\n";
-    } else if (temperature > 75) {
-        cout << "It's a bit warm!\n";
-    } else if (temperature > 50) {
-        cout << "It's a bit chilly!\n";
-    } else {
-        cout << "It's cold!\n";
+    public:
+        // Constructor
+        WeatherConverter(double temp = 0.0) {
+            temperature = temp;
+        }
+
+        // Setter
+        void setTemperature(double temp) {
+            temperature = temp;
+        }
+
+        // Getter
+        double getTemperature() {
+            return temperature;
+        }
+
+        // Function to convert Celsius to Fahrenheit
+        double convertF(double temp ){
+            return (temperature * 9/5) + 32;
+        }
+
+        // Function to convert Fahrenheit to Celsius
+        double convertC(double temp){
+            return (temperature - 32) * 5/9;
+        }
+
+        // Function message output
+        void weatherMessage(double temp){
+        if (temp > 100) {
+            cout << "Extremely hot!\n";
+        } else if (temp > 80) {
+            cout << "It's too hot outside!\n";
+        } else if (temp > 75) {
+            cout << "It's a bit warm!\n";
+        } else if (temp > 50) {
+            cout << "It's a bit chilly!\n";
+        } else {
+            cout << "It's cold!\n";
+        }
     }
 };
         
 
 
-int main(){
+int main() {
+
+    WeatherConverter converter; // create object
     
-    int choice;
-     // store user's yes/no input
+    int choice; // store user's yes/no input
 
     do {
         double num; // stores user's Celsius input
@@ -48,16 +71,18 @@ int main(){
         if(choice == 1) {
             cout << "Enter number: ";
             cin >> num;
-            double fahrenheit = convertF(num); // convert call function
+            converter.setTemperature(num); // Set the temperature
+            double fahrenheit = converter.convertF(num); // Call method via object
             cout << "The temperature is: " << fahrenheit << " F\n";
-            weatherMessage(fahrenheit); // call function
+            converter.weatherMessage(fahrenheit); // call function
 
         } else if (choice == 2) {
             cout << "Enter number: ";
             cin >> num;
-            double celsius = convertC(num);
+            converter.setTemperature(num);
+            double celsius = converter.convertC(num);       
             cout << "The temperature is: " << celsius << " C\n";
-            weatherMessage(celsius);
+            converter.weatherMessage(celsius);
 
         } else if (choice == 3) {
             cout << "Goodbye!\n";
