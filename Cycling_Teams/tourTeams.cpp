@@ -5,7 +5,7 @@ using namespace std;
 
 
 struct Rider {
-    string fname, lname, nationality, role;
+    string fname, lname, country, role;
 };
 
 
@@ -17,7 +17,6 @@ int main(){
     int roleOption;
     string choice;
     
-
     
     cout << "********** RIDER's PROFILE **********\n\n";
 
@@ -34,10 +33,10 @@ int main(){
         cout << "Enter Last Name: ";
         getline(cin,  rider.lname);
 
-        cout << "Enter Nationality: ";
-        getline(cin, rider.nationality);
+        cout << "Enter Country: ";
+        getline(cin, rider.country);
 
-        string profile = rider.fname + " " + rider.lname + " : " + rider.nationality;
+        string profile = rider.fname + " " + rider.lname + " : " + rider.country;
         cout << "Rider's profile: " + profile << "\n";
 
         cout << "\nAssign Role:\n";
@@ -66,12 +65,12 @@ int main(){
         roster.push_back(rider); // save rider to roster
         cout <<  rider.role  + " : " + profile + "\n"; // press enter to add another rider
         cout << "****|Team Roster|****\n";
-        
+
         for(int i = 0; i < roster.size(); i++){
             
             cout << i + 1 << ". "
                 << roster[i].fname + " " +  roster[i].lname 
-                << " | " << roster[i].nationality
+                << " | " << roster[i].country
                 << " | " << roster[i].role << "\n";
         }
 
