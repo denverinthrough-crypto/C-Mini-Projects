@@ -16,16 +16,17 @@ int main(){
     vector<Rider> roster;
     int roleOption;
     string choice;
+    
 
     
     cout << "********** RIDER's PROFILE **********\n\n";
 
-    do {
+    
         Rider rider;
     
 
 
-        cin.ignore();
+    do {   
         // ask user to enter name
         cout << "Enter First Name: ";
         getline(cin, rider.fname);
@@ -46,7 +47,7 @@ int main(){
         cin >> roleOption;
 
     
-
+   
         switch(roleOption) {
             case 1:
                 rider.role = "Team Leader";
@@ -58,14 +59,16 @@ int main(){
                 rider.role = "All-Around Domestique";
                 break;
             default:
-                cout << "Invalid option\n";
+                cout << "Invalid option.\n";
                 continue;
         }
 
         roster.push_back(rider); // save rider to roster
         cout <<  rider.role  + " : " + profile + "\n"; // press enter to add another rider
-
+        cout << "****|Team Roster|****\n";
+        
         for(int i = 0; i < roster.size(); i++){
+            
             cout << i + 1 << ". "
                 << roster[i].fname + " " +  roster[i].lname 
                 << " | " << roster[i].nationality
@@ -74,6 +77,7 @@ int main(){
 
         cout << "Add another rider: (yes/no)\n"; // i need a loop to go back to this option
         cin >> choice;
+        cin.ignore();
         
 
     } while (choice == "Yes" || choice == "yes");
