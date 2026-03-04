@@ -10,19 +10,24 @@ class Teams {
     private:
  
         vector<string> teams;
+        vector<string> countries;
 
     public: 
-        void addTeam(string name){
+        void addTeam(string name, string country){
             teams.push_back(name);
-            cout << "Team " + name + " added.\n";
+            countries.push_back(country);
+            cout << "Team " + name + " | " + country + " added.\n";
         }
 
         void showTeam(){
             cout << "\n****| Tour de France Teams |****\n";
             for(int i = 0; i < teams.size(); i++) {
-                cout << i + 1 << ". " << teams[i] << "\n";
+                cout << i + 1 << ". " << teams[i] << " (" << countries[i] << ")\n";
             }
         }
+
+        
+
 
 };
 
@@ -30,6 +35,7 @@ int main() {
 
     Teams tourTeams;
     string teamName;
+    string country;
     int choice;
     string input;
 
@@ -59,16 +65,28 @@ int main() {
                 if(teamName.empty() || !all_of(teamName.begin(), 
                         teamName.end(), [](char c){ return isalpha(c)|| isspace(c); })) {
                         cout << "Invalid name. Use letters only.\n";
+                        break;
                 }
 
-                tourTeams.addTeam(teamName);
+                cout << "Enter country: ";
+                getline(cin, country);
+
+                if (country.empty() || !all_of(country.begin(), country.end(), [](char c){ return isalpha(c) || isspace(c); })) {
+                    cout << "Invalid country. Use letters only.\n";
+                    break;
+                }
+
+                tourTeams.addTeam(teamName, country);
                 break;
+
             case 2:
                 tourTeams.showTeam();
                 break;
+
             case 3:
                 cout << "Exiting.... \n";
                 break;
+
             default:
                 cout << "Invalid option.\n";
 
