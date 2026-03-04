@@ -49,7 +49,9 @@ using namespace std;
     return result;
  }
 
-
+// =========================
+// TEAM CLASS
+// =========================
 class Teams {
     private:
  
@@ -59,7 +61,9 @@ class Teams {
     public: 
         // Constructor
         Teams(){
-            cout << "Tour de France Team Manager Started!\n";
+            cout << "***********************************\n";
+            cout << "*** Tour de France Team Manager ***\n";
+            cout << "***********************************\n";
         }
 
         // Function to add team name and country name
@@ -77,22 +81,90 @@ class Teams {
             }
         }
 
+        // Returns team name by index for Riders to use
+        string getTeam(int index){
+            return teams[index];
+        }
+
+        int teamCount() {
+            return teams.size();
+        }
+
+        bool isEmpty() {
+            return teams.empty();
+        }
+
 };
 
+// ======================
+// RIDERS CLASS
+// ======================
+class Riders {
+    private:
+        struct Rider {
+            string fname;
+            string lname;
+            string country;
+            string role;
+            string team;
+        };
+
+        vector<Rider> roster;
+
+    public:
+        Riders() {
+            cout << "*****************************\n";
+            cout << "*** Rider Profile Manager ***\n";
+            cout << "*****************************\n";
+        }
+
+        void addRider(string  fname, string lname, string country, string role, string team ){
+            Rider r;
+            r.fname = fname;
+            r.lname = lname;
+            r.country = country;
+            r.role = role;
+            r.team = team;
+            roster.push_back(r);
+            cout << "\n" + role + ": " + fname + " " + lname + " added to " + team + ".\n";
+        }
+
+        void showRiders(){
+            if(roster.empty()){
+                cout << "No riders added yet.\n";
+                return;
+            
+            }
+            cout << "\n****| Tour de France Riders |****\n";
+            for(int i = 0; i < roster.size(); i++) {
+                cout << i + 1 << ". "
+                << roster[i].fname + " " + roster [i].lname
+                << " | " << roster[i].country
+                << " | " << roster[i].role
+                << " | " << roster[i].team << "\n";
+            }
+        }
+
+};
+
+// ======================
+// Main
+// ======================
 int main() {
 
     
 
     // Local variables
     Teams tourTeams; // object created tourTeams to class Teams
-    string teamName;
-    string country;
+    Riders tourRiders; // object created to class Riders
+    string teamName, country, input;
+    
     int choice;
-    string input;
+    
 
     do {
-        cout << "\n*** Tour De France Teams ***\n";
-        cout << "1. Add Team\n2. Show Teams\n3. Exit\n";
+        cout << "\n*** Tour De France Manager ***\n";
+        cout << "1. Add Team\n2. Show Teams\n3. Add Rider\n4. Show Riders\n5. Exit\n";
         cout << "Choose: ";
         getline(cin, input);
 
@@ -140,15 +212,89 @@ int main() {
                 tourTeams.showTeam();
                 break;
 
-            case 3:
-                cout << "Exiting.... \n";
+            case 3: {
+                // Check if teams exit first
+                if(tourTeams.isEmpty()) {
+                    cout << "No teams yet. Please add a team first.\n";
+                    break;
+                }
+
+                string fname, lname, country, roleInput, teamInput;
+                int roleOption, teamChoice;
+
+                cout << "Enter First Name: ";
+                getline(cin, fname);
+                fname = formatTeamName(fname);
+
+                cout << "Enter Last Name: ";
+                getline(cin, lname);
+                lname = formatTeamName(lname);
+
+                cout << "Enter Country: ";
+                getline(cin, country);
+                country = formatTeamName(country);
+
+                cout << "\nAssign Role:\n";
+                cout << "1. Team Leader\n";
+                cout << "2. Climbing Domestique\n";
+                cout << "3. All-Around Domestique\n";
+                cout << "Choose: ";
+                getline(cin, roleInput);
+
+                string role;
+                try {
+                    roleOption = stoi(roleInput);
+                    switch(roleOption) {
+                        case 1: role = "Team Leader"; break;
+                        case 2: role = "Climbing Domestique"; break;
+                        case 3: role = "All-Around Domestique"; break;
+                        default:
+                            cout << "Invalid role.\n";
+                            break;
+                    }
+                    if(role.empty()) break;
+
+                }catch (...) {
+                    cout << "Invalid input.\n";
+                    break;
+                }
+
+                // Pick from existing teams
+                cout << "\nAssign to Team:\n";
+                tourTeams.showTeam();
+                cout << "Choose team number: ";
+                getline(cin, teamInput);
+
+                try {
+                    teamChoice = stoi(teamInput);
+                    if(teamChoice < 1 ||  teamChoice > tourTeams.teamCount()) {
+                        cout << "Invalid team number.\n";
+                        break;
+                    }
+                }catch (...){
+                    cout << "Invalid input.\n";
+                    break;
+
+                }
+
+                string assignedTEam = tourTeams.getTeam(teamChoice - 1);
+                tourRiders.addRider(fname, lname, country, role, assignedTEam);
+                break;
+            }
+
+            case 4:
+                tourRiders.showRiders();
+                break;
+
+            case 5:
+                cout << "Exiting....\n";
                 break;
 
             default:
                 cout << "Invalid option.\n";
 
         }
-    } while (choice != 3);
+    } while (choice != 5);
 
     return 0;
    
