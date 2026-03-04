@@ -9,16 +9,23 @@ using namespace std;
 class Teams {
     private:
  
-        vector<string> teams;
-        vector<string> countries;
+        vector<string> teams; // member variable
+        vector<string> countries; // member variable
 
     public: 
+        // Constructor
+        Teams(){
+            cout << "Tour de France Team Manager Started!\n";
+        }
+        
+        // Function to add team name and country name
         void addTeam(string name, string country){
             teams.push_back(name);
             countries.push_back(country);
             cout << "Team " + name + " | " + country + " added.\n";
         }
 
+        // Function to show team/country
         void showTeam(){
             cout << "\n****| Tour de France Teams |****\n";
             for(int i = 0; i < teams.size(); i++) {
@@ -26,13 +33,13 @@ class Teams {
             }
         }
 
-        
-
-
 };
 
 int main() {
 
+    Teams tourTeams;
+
+    // Local variables
     Teams tourTeams;
     string teamName;
     string country;
