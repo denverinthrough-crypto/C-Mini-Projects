@@ -3,7 +3,51 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
+#include <sstream>
 using namespace std;
+
+// Known acronyms
+ vector<string> acronyms = {"UAE", "BMC", "EF", "CMA", "CGM", "FDJ", "BORA", "XDS", "INEOS"};
+
+ bool isAcronym(string word) {
+    transform(word.begin(), word.end(), word.begin(), ::toupper);
+    for (string a : acronyms) {
+        if(word == a) return true;
+    }
+    return false;
+ }
+
+ string formatTeamName(string name){
+    // Replace - with space around it for splitting
+    string cleaned = "";
+    for(char c : name) {
+        if (c == '-') cleaned += " - ";
+        else cleaned += c;
+    }
+
+    stringstream ss(cleaned);
+    string word;
+    string result = "";
+
+    while (ss >> word) {
+        if (word == "-") {
+            result += "- "; // Keep the dash as is
+
+        } else if(isAcronym(word)){
+            transform(word.begin(), word.end(), word.begin(), ::toupper);
+            result += word + " ";
+
+        } else {
+            transform(word.begin(), word.end(), word.begin(), ::tolower);
+            word[0] = toupper(word[0]);
+            result += word + " ";
+
+        }
+    }
+
+    result.pop_back();
+    return result;
+ }
 
 
 class Teams {
@@ -17,12 +61,12 @@ class Teams {
         Teams(){
             cout << "Tour de France Team Manager Started!\n";
         }
-        
+
         // Function to add team name and country name
         void addTeam(string name, string country){
             teams.push_back(name);
             countries.push_back(country);
-            cout << "Team " + name + " | " + country + " added.\n";
+            cout << "Team " + name + " | " + country << "\n";
         }
 
         // Function to show team/country
@@ -37,10 +81,10 @@ class Teams {
 
 int main() {
 
-    Teams tourTeams;
+    
 
     // Local variables
-    Teams tourTeams;
+    Teams tourTeams; // object created tourTeams to class Teams
     string teamName;
     string country;
     int choice;
@@ -70,18 +114,24 @@ int main() {
 
                 // Check if name contains only letters and spaces
                 if(teamName.empty() || !all_of(teamName.begin(), 
-                        teamName.end(), [](char c){ return isalpha(c)|| isspace(c); })) {
+                        teamName.end(), [](char c){ return isalpha(c)|| isspace(c)
+                        || c == '-'; })) {
                         cout << "Invalid name. Use letters only.\n";
                         break;
                 }
 
+                teamName = formatTeamName(teamName);
+
                 cout << "Enter country: ";
                 getline(cin, country);
 
-                if (country.empty() || !all_of(country.begin(), country.end(), [](char c){ return isalpha(c) || isspace(c); })) {
+                if (country.empty() || !all_of(country.begin(), country.end(), [](char c){ return isalpha(c) || isspace(c)
+                    || c == '-'; })) {
                     cout << "Invalid country. Use letters only.\n";
                     break;
                 }
+
+                country = formatTeamName(country);
 
                 tourTeams.addTeam(teamName, country);
                 break;
