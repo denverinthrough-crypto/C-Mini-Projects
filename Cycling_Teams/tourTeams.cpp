@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <limits>
+#include <algorithm>
 using namespace std;
 
 
@@ -29,18 +31,36 @@ int main() {
     Teams tourTeams;
     string teamName;
     int choice;
+    string input;
 
     do {
         cout << "\n*** Tour De France Teams ***\n";
         cout << "1. Add Team\n2. Show Teams\n3. Exit\n";
         cout << "Choose: ";
-        cin >> choice;
-        cin.ignore();
+        getline(cin, input);
+
+
+        try {
+            choice = stoi(input);
+            input = "";
+        } catch (...) {
+            cout << "Invalid input. Please enter a number.\n";
+            choice = 0;
+            continue;
+        }
+
 
         switch(choice){
             case 1:
                 cout << "Enter team name: ";
                 getline(cin, teamName);
+
+                // Check if name contains only letters and spaces
+                if(teamName.empty() || !all_of(teamName.begin(), 
+                        teamName.end(), [](char c){ return isalpha(c)|| isspace(c); })) {
+                        cout << "Invalid name. Use letters only.\n";
+                }
+
                 tourTeams.addTeam(teamName);
                 break;
             case 2:
