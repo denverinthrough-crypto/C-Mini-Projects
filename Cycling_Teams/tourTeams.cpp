@@ -6,6 +6,8 @@
 #include <sstream>
 using namespace std;
 
+
+
 // Known acronyms
  vector<string> acronyms = {"UAE", "BMC", "EF", "CMA", "CGM", "FDJ", "BORA", "XDS", "INEOS", "USA"};
 
@@ -53,6 +55,8 @@ using namespace std;
     return input == "0" || input == "cancel";
  }
 
+
+
 // =========================
 // TEAM CLASS
 // =========================
@@ -69,6 +73,8 @@ class Teams {
             cout << "*** Tour de France Team Manager ***\n";
             cout << "***********************************\n";
         }
+
+       
 
         // Function to add team name and country name
         void addTeam(string name, string country){
@@ -115,6 +121,7 @@ class Riders {
 
         vector<Rider> roster;
 
+       
     public:
         Riders() {
             cout << "*****************************\n";
@@ -149,7 +156,31 @@ class Riders {
             }
         }
 
+         vector<Rider>& getRoster() {
+            return roster;
+        }
+
+        
+
+
 };
+
+ void showTeamWithRiders(Teams& teams, Riders& riders) {
+            cout << "\n****| Tour de France Teams & Riders |****\n";
+            for(int i = 0; i < teams.teamCount(); i++) {
+               cout << i + 1 << ". " << teams.getTeam(i) << "\n";
+               bool hasRider = false;
+               for (auto& r : riders.getRoster()) {
+                if(r.team == teams.getTeam(i)) {
+                    cout << "   - " << r.fname << " " << r.lname
+                     << " | " << r.country
+                     << " | " << r.role << "\n";
+                    hasRider = true;
+                }
+            }
+            if(!hasRider) cout << "   - No riders yet.\n";
+            }
+         }
 
 // ======================
 // Main
@@ -168,7 +199,7 @@ int main() {
 
     do {
         cout << "\n*** Tour De France Manager ***\n";
-        cout << "1. Add Team\n2. Show Teams\n3. Add Rider\n4. Show Riders\n5. Exit\n";
+        cout << "1. Add Team\n2. Show Teams\n3. Add Rider\n4. Show Riders\n5. Show Teams & Riders\n6. Exit\n";
         cout << "Choose: ";
         getline(cin, input);
 
@@ -293,6 +324,10 @@ int main() {
                 break;
 
             case 5:
+                showTeamWithRiders(tourTeams, tourRiders);
+                break;
+
+            case 6:
                 cout << "Exiting....\n";
                 break;
 
@@ -300,7 +335,7 @@ int main() {
                 cout << "Invalid option.\n";
 
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
     return 0;
    
