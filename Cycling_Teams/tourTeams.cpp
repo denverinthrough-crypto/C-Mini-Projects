@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <limits>
 #include <algorithm>
 #include <sstream>
 using namespace std;
@@ -69,9 +68,7 @@ class Teams {
     public: 
         // Constructor
         Teams(){
-            cout << "***********************************\n";
-            cout << "*** Tour de France Team Manager ***\n";
-            cout << "***********************************\n";
+            
         }
 
        
@@ -124,9 +121,7 @@ class Riders {
        
     public:
         Riders() {
-            cout << "*****************************\n";
-            cout << "*** Rider Profile Manager ***\n";
-            cout << "*****************************\n";
+           
         }
 
         void addRider(string  fname, string lname, string country, string role, string team ){
@@ -140,21 +135,7 @@ class Riders {
             cout << "\n" + role + ": " + fname + " " + lname + " added to " + team + ".\n";
         }
 
-        void showRiders(){
-            if(roster.empty()){
-                cout << "No riders added yet.\n";
-                return;
-            
-            }
-            cout << "\n****| Tour de France Riders |****\n";
-            for(int i = 0; i < roster.size(); i++) {
-                cout << i + 1 << ". "
-                << roster[i].fname + " " + roster [i].lname
-                << " | " << roster[i].country
-                << " | " << roster[i].role
-                << " | " << roster[i].team << "\n";
-            }
-        }
+       
 
          vector<Rider>& getRoster() {
             return roster;
@@ -198,15 +179,15 @@ int main() {
     
 
     do {
-        cout << "\n*** Tour De France Manager ***\n";
-        cout << "1. Add Team\n2. Show Teams\n3. Add Rider\n4. Show Riders\n5. Show Teams & Riders\n6. Exit\n";
+        cout << "\n*** Tour de France Team Manager ***\n";
+        cout << "1. Add Team\n2. Add Rider\n3. Show Teams & Riders\n4. Exit\n";
         cout << "Choose: ";
         getline(cin, input);
 
 
         try {
             choice = stoi(input);
-            input = "";
+           
         } catch (...) {
             cout << "Invalid input. Please enter a number.\n";
             choice = 0;
@@ -245,11 +226,9 @@ int main() {
                 tourTeams.addTeam(teamName, country);
                 break;
 
-            case 2:
-                tourTeams.showTeam();
-                break;
+           
 
-            case 3: {
+            case 2: {
                 // Check if teams exit first
                 if(tourTeams.isEmpty()) {
                     cout << "No teams yet. Please add a team first.\n";
@@ -261,14 +240,17 @@ int main() {
 
                 cout << "Enter First Name: ";
                 getline(cin, fname);
+                if(isCancelled(fname)) { cout << "Cancelled.\n"; break; }
                 fname = formatTeamName(fname);
 
                 cout << "Enter Last Name: ";
                 getline(cin, lname);
+                if(isCancelled(lname)) { cout << "Cancelled.\n"; break; }
                 lname = formatTeamName(lname);
 
                 cout << "Enter Country: ";
                 getline(cin, country);
+                if(isCancelled(country)) { cout << "Cancelled.\n"; break; }
                 country = formatTeamName(country);
 
                 cout << "\nAssign Role:\n";
@@ -277,6 +259,7 @@ int main() {
                 cout << "3. All-Around Domestique\n";
                 cout << "Choose: ";
                 getline(cin, roleInput);
+                if(isCancelled(roleInput)) { cout << "Cancelled.\n"; break; }
 
                 string role;
                 try {
@@ -301,6 +284,7 @@ int main() {
                 tourTeams.showTeam();
                 cout << "Choose team number: ";
                 getline(cin, teamInput);
+                if(isCancelled(teamInput)) { cout << "Cancelled.\n"; break; }
 
                 try {
                     teamChoice = stoi(teamInput);
@@ -319,15 +303,13 @@ int main() {
                 break;
             }
 
-            case 4:
-                tourRiders.showRiders();
-                break;
+           
 
-            case 5:
+            case 3:
                 showTeamWithRiders(tourTeams, tourRiders);
                 break;
 
-            case 6:
+            case 4:
                 cout << "Exiting....\n";
                 break;
 
@@ -335,7 +317,7 @@ int main() {
                 cout << "Invalid option.\n";
 
         }
-    } while (choice != 6);
+    } while (choice != 4);
 
     return 0;
    
